@@ -149,10 +149,11 @@
 
 // 解密函数，使用AES加密密钥"421723"
     function decryptData(encryptedData, key) {
-      const decrypted = CryptoJS.AES.decrypt(encryptedData, key);
-      return JSON.parse(decrypted.toString(CryptoJS.enc.Utf8));
-    }
-
+  const decrypted = CryptoJS.AES.decrypt(encryptedData, key);
+  const decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
+  console.log("Decrypted Data:", decryptedData); // 添加此行进行调试
+  return JSON.parse(decryptedData);
+}
     async function fetchData() {
       try {
         const response = await fetch(apiUrl);
