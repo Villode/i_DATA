@@ -38,10 +38,18 @@
             background-color: #f2f2f2;
         }
 
+        #searchContainer {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            background-color: #f2f2f2;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
         #searchInput {
             width: 100%;
             padding: 10px;
-            margin-bottom: 20px;
             box-sizing: border-box;
         }
 
@@ -74,6 +82,17 @@
             color: #aaa; /* Light gray color for missing information */
         }
 
+        #returnToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
         @media (max-width: 600px) {
             th,
             td {
@@ -93,24 +112,28 @@
 <body>
     <h2>黑榜</h2>
 
-    <input type="text" id="searchInput" placeholder="搜索公司名称或序号">
+    <div id="searchContainer">
+        <input type="text" id="searchInput" placeholder="快速搜索公司名称或序号">
+    </div>
 
     <div id="tableContainer">
         <table id="blacklistTable">
             <tr>
-                <th>序号</th>
-                <th>公司名称</th>
-                <th colspan="2">原因 / 地址</th>
+                <th style="position: sticky; top: 70px; z-index: 1;">序号</th>
+                <th style="position: sticky; top: 70px; z-index: 1;">公司名称</th>
+                <th colspan="2" style="position: sticky; top: 70px; z-index: 1;">原因 / 地址</th>
             </tr>
         </table>
         <div id="noMoreContentMessage" style="display: none;">无更多内容，如有新的线索请<a href="https://jinshuju.net/f/DKeqIR">点击添加</a></div>
     </div>
 
     <div id="pagination"></div>
+    <div id="returnToTop" onclick="scrollToTop()">▲</div>
 
     <script>
         const table = document.getElementById("blacklistTable");
         const tableContainer = document.getElementById("tableContainer");
+        const searchContainer = document.getElementById("searchContainer");
         const apiUrl = "https://isgo.top/i_DATA/GX_bl.json";
         const itemsPerPage = 99;
         let currentPage = 1;
@@ -234,6 +257,13 @@
         document
             .getElementById("searchInput")
             .addEventListener("keyup", searchTable);
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
     </script>
 </body>
 </html>
