@@ -1,32 +1,106 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <style>
-    #tableContainer {
-      height: 400px;
-      overflow-y: scroll;
-    }
-  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #tableContainer {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #noMoreContentMessage {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        #pagination button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+
+        @media (max-width: 600px) {
+            th,
+            td {
+                font-size: 14px;
+            }
+
+            #tableContainer {
+                padding: 5px;
+            }
+
+            #pagination {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <h2>黑榜</h2>
+    <h2>黑榜</h2>
 
-  <input type="text" id="searchInput" placeholder="搜索公司名称或序号">
+    <input type="text" id="searchInput" placeholder="搜索公司名称或序号">
 
-  <div id="tableContainer">
-    <table id="blacklistTable">
-      <tr>
-        <th>序号</th>
-        <th>公司名称</th>
-        <th>原因</th>
-        <th>地址/备注</th>
-      </tr>
-    </table>
-    <div id="noMoreContentMessage" style="display: none; text-align: center; font-weight: bold;">无更多内容，如有新的线索请<a href="https://jinshuju.net/f/DKeqIR">点击添加</a></div>
-  </div>
+    <div id="tableContainer">
+        <table id="blacklistTable">
+            <tr>
+                <th>序号</th>
+                <th>公司名称</th>
+                <th>原因</th>
+                <th>地址/备注</th>
+            </tr>
+        </table>
+        <div id="noMoreContentMessage" style="display: none;">无更多内容，如有新的线索请<a href="https://jinshuju.net/f/DKeqIR">点击添加</a></div>
+    </div>
 
-  <div id="pagination"></div>
+    <div id="pagination"></div>
 
   <script>
     const table = document.getElementById("blacklistTable");
