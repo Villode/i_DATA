@@ -70,6 +70,10 @@
             background-color: #f2f2f2;
         }
 
+        .missing-info {
+            color: #aaa; /* Light gray color for missing information */
+        }
+
         @media (max-width: 600px) {
             th,
             td {
@@ -146,8 +150,8 @@
                     html += "<td>" + row["序号"] + "</td>";
                     html += "<td>" + row["公司名称"] + "</td>";
                     html += "<td colspan='2'>" + 
-                        "原因： " + row["原因"] + "<br>" +
-                        "地址：" + row["地址"] + 
+                        "原因： " + (row["原因"] ? row["原因"] : "<span class='missing-info'>提供信息者未填写</span>") + "<br>" +
+                        "地址：" + (row["地址"] ? row["地址"] : "<span class='missing-info'>提供信息者未填写</span>") + 
                     "</td>";
                     html += "</tr>";
                 }
@@ -166,7 +170,7 @@
                 visibleData = data;
             } else {
                 visibleData = data.filter((row) => {
-                    if (row === null || typeof row === "来源提供者未填写信息") return false;
+                    if (row === null || typeof row === "undefined") return false;
                     return Object.values(row).some((property) => {
                         return (property || "").toString().toUpperCase().indexOf(filter) !== -1;
                     });
