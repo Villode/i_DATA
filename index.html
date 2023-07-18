@@ -96,8 +96,7 @@
             <tr>
                 <th>序号</th>
                 <th>公司名称</th>
-                <th>原因</th>
-                <th>地址</th>
+                <th colspan="2">原因 / 地址</th>
             </tr>
         </table>
         <div id="noMoreContentMessage" style="display: none;">无更多内容，如有新的线索请<a href="https://jinshuju.net/f/DKeqIR">点击添加</a></div>
@@ -108,14 +107,13 @@
     <script>
         const table = document.getElementById("blacklistTable");
         const tableContainer = document.getElementById("tableContainer");
-        const apiUrl = "https://isgo.top/i_DATA/GX_bl.json"; // 替换为你的外部链接
-        const itemsPerPage = 99; // 每页显示的数据数量
+        const apiUrl = "https://isgo.top/i_DATA/GX_bl.json";
+        const itemsPerPage = 99;
         let currentPage = 1;
-        let data = []; // 存储所有数据
-        let visibleData = []; // 存储当前可见的数据
-        let isLoadingData = false; // 是否正在加载数据
-  
-        // 这里根据新的数据结构进行修改
+        let data = [];
+        let visibleData = [];
+        let isLoadingData = false;
+
         async function fetchData() {
             try {
                 const response = await fetch(apiUrl);
@@ -127,44 +125,44 @@
                 console.error("Error fetching data:", error);
             }
         }
-  
+
         function getTotalPages() {
             return Math.ceil(visibleData.length / itemsPerPage);
         }
-  
+
         function updateVisibleData() {
             visibleData = data;
         }
-  
-        // 这里根据新的数据结构进行修改
+
         function renderTable(page) {
             const startIndex = (page - 1) * itemsPerPage;
             const endIndex = Math.min(startIndex + itemsPerPage, visibleData.length);
             let html = "";
-  
+
             for (let i = startIndex; i < endIndex; i++) {
                 const row = visibleData[i];
                 if (row) {
                     html += "<tr>";
-                    // 修改这里以显示更多的信息
                     html += "<td>" + row["序号"] + "</td>";
                     html += "<td>" + row["公司名称"] + "</td>";
-                    html += "<td>" + row["原因"] + "</td>";
-                    html += "<td>" + row["地址"] + "</td>";
+                    html += "<td colspan='2'>" + 
+                        "原因： " + row["原因"] + "<br>" +
+                        "地址：" + row["地址"] + 
+                    "</td>";
                     html += "</tr>";
                 }
             }
-  
+
             table.innerHTML = html;
             checkNoMoreContentMessage();
             isLoadingData = false;
         }
-  
+
         function searchTable() {
             const input = document.getElementById("searchInput");
             const filter = input.value.toUpperCase();
-  
-            if (!filter) { // 如果搜索框为空，则显示全部数据
+
+            if (!filter) {
                 visibleData = data;
             } else {
                 visibleData = data.filter((row) => {
@@ -174,41 +172,41 @@
                     });
                 });
             }
-  
-            currentPage = 1; // 搜索后回到第一页
+
+            currentPage = 1;
             renderTable(currentPage);
             updatePagination();
         }
-  
+
         function checkNoMoreContentMessage() {
             const noMoreContentMessage = document.getElementById("noMoreContentMessage");
-  
+
             if (visibleData.length === 0) {
                 noMoreContentMessage.style.display = "block";
             } else {
                 noMoreContentMessage.style.display = "none";
             }
         }
-  
+
         function updatePagination() {
             const totalPages = getTotalPages();
             const pagination = document.getElementById("pagination");
             let html = "";
-  
+
             for (let i = 1; i <= totalPages; i++) {
                 html += `<button onclick="goToPage(${i})">${i}</button>`;
             }
-  
+
             pagination.innerHTML = `当前页：${currentPage} / 总页数：${totalPages} ${html}`;
         }
-  
+
         function goToPage(page) {
             if (page > getTotalPages() || page < 1) return;
             currentPage = page;
             renderTable(currentPage);
             updatePagination();
         }
-  
+
         const observer = new IntersectionObserver(
             entries => {
                 entries.forEach(entry => {
@@ -226,9 +224,9 @@
             },
             { root: tableContainer }
         );
-  
+
         fetchData();
-  
+
         document
             .getElementById("searchInput")
             .addEventListener("keyup", searchTable);
