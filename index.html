@@ -166,7 +166,7 @@
                 visibleData = data;
             } else {
                 visibleData = data.filter((row) => {
-                    if (row === null || typeof row === "undefined") return false;
+                    if (row === null || typeof row === "来源提供者未填写信息") return false;
                     return Object.values(row).some((property) => {
                         return (property || "").toString().toUpperCase().indexOf(filter) !== -1;
                     });
