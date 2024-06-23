@@ -1,0 +1,26 @@
+{
+    "software_list": [
+      {
+        "name": "QQ音乐",
+        "size": "10 MB",
+        "description": "腾讯开发的音乐听歌软件",
+        "image_url": "https://y.gtimg.cn/mediastyle/app/download/img/logo.png",
+        "download_link": "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_1.1.5_amd64_.deb"
+      },
+      {
+        "name": "QQ音乐",
+        "size": "10 MB",
+        "description": "腾讯开发的音乐听歌软件",
+        "image_url": "https://y.gtimg.cn/mediastyle/app/download/img/logo.png",
+        "download_link": "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_1.1.5_amd64_.deb"
+      },
+      {
+        "name": "QQ音乐",
+        "size": "10 MB",
+        "description": "腾讯开发的音乐听歌软件",
+        "image_url": "https://y.gtimg.cn/mediastyle/app/download/img/logo.png",
+        "download_link": "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_1.1.5_amd64_.deb"
+      }
+    ]
+  }
+  
